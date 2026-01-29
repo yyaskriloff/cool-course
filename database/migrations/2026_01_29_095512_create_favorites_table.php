@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->foreignId('content_id')->constrained('contents')->onDelete('cascade');
             
             $table->primary(['user_id', 'content_id']);
