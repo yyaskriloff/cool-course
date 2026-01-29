@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -26,7 +27,7 @@ class CourseController extends Controller
     public function create(Request $request)
     {
 
-        
+
       
     }
 
@@ -47,33 +48,40 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        $course = Course::findOrFail($id);
-        return view('courses.show', ['course' => $course]);
+        return view('courses.show', compact('course'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Course $course)
     {
-        //
+        return view('courses.edit', compact('course'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Course $course)
     {
-        //
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+            ]);
+
+            $course->update($validated);
+
+        return redirect()->route('courses.show',[ $course->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return redirect('/');
     }
 }
