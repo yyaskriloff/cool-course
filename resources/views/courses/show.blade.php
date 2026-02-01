@@ -20,6 +20,14 @@
                     </form>
                 </button>
             </div>
+            <div class="card-body">
+                <h2 class="text-2xl font-bold">Contents</h2>
+                <ul class="list-disc list-inside">
+                    @foreach ($contents as $content)
+                        <x-course-content :content="$content" />
+                    @endforeach
+                </ul>
+            </div>
         </div>
     </div>
 </x-layout>

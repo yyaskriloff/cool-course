@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\Content;
 
 class CourseController extends Controller
 {
@@ -50,7 +51,10 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return view('courses.show', compact('course'));
+        $contents = Content::where('course_id', $course->id)->orderBy('created_at', 'desc')->get();
+
+        var_dump($contents[0]->published);
+        return view('courses.show', compact('course', 'contents'));
     }
 
     /**
