@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
 {
+    protected $table = 'history';
+
     protected $fillable = [
+        'user_id',
+        'content_id',
         'progress',
     ];
 

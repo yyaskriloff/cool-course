@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Course;
 use App\Models\Content;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ContentController extends Controller
 {
 
-
+    use AuthorizesRequests;
    
     public function create( Request $request, Course $course)
     {
+        $this->authorize('create', [Content::class, $course]);
         return view('courses.content.create', compact('course'));
     }
 
@@ -22,9 +24,8 @@ class ContentController extends Controller
      */
     public function store(Request $request,  Course $course)
     {
-        Log::info('Hit ContentController@store route');
 
-        Log::info('Request: ' . json_encode($request->all()));
+        $this->authorize('create', [Content::class, $course]);
         
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -69,6 +70,8 @@ class ContentController extends Controller
      */
     public function edit(Course $course,  $content)
     {
+
+        $this->authorize('update', [Content::class, $course]);
         $content = $course->contents()->findOrFail($content);
 
 
@@ -81,6 +84,7 @@ class ContentController extends Controller
     public function update(Request $request, Course $course, $content)
     {
         $content = $course->contents()->findOrFail($content);
+        $this->authorize('update', [Content::class, $content]);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -100,7 +104,7 @@ class ContentController extends Controller
      */
     public function destroy(Course $course, $content)
     {
-
+        $this->authorize('delete', [Content::class, $content]);
         $content = $course->contents()->findOrFail($content);
         $content->delete();
         return redirect()->route('courses.show',[ $course->id]);

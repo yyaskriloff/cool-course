@@ -18,7 +18,6 @@
                 <p class="text-base-content/60">{{ $content->description }}</p>
                 <video id="content-player" data-course="{{ $course->id }}" data-content="{{ $content->id }}"
                     src="{{ asset('storage/' . $content->file) }}" class="w-full" controls></video>
-                @vite('resources/js/videoHistory.js')
             </div>
         </div>
     </div>

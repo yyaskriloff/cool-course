@@ -23,6 +23,13 @@ class Content extends Model
         return $this->hasMany(History::class);
     }
 
+    public function historyForUser($userId)
+    {
+        return $this->history()->where('user_id', $userId)->first();
+    }
+
+
+
     public function favorites()
     {
         return $this->hasMany(Favorites::class);

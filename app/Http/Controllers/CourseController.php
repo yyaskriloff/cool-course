@@ -3,33 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\Content;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    use AuthorizesRequests;
+
     public function index()
     {
+        $courses = Auth::user()?->courses ?? collect();
 
-        $courses = Course::get();
-
-
-        return view('home', ['courses' => $courses]);
+        return view('courses.index', ['courses' => $courses]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-
-
-      
+        return view('courses.create');
     }
 
     public function store(Request $request)
@@ -39,7 +37,7 @@ class CourseController extends Controller
             'description' => 'required|string|max:255',
         ]);
 
-        $user = User::findOrFail(1);
+        $user = Auth::user();
 
         $course = $user->courses()->create([...$validated,'status' => 'published', 'image' => '']);
 
@@ -53,7 +51,6 @@ class CourseController extends Controller
     {
         $contents = Content::where('course_id', $course->id)->orderBy('created_at', 'desc')->get();
 
-        var_dump($contents[0]->published);
         return view('courses.show', compact('course', 'contents'));
     }
 
@@ -62,6 +59,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+
+        $this->authorize('update', $course);
         return view('courses.edit', compact('course'));
     }
 
@@ -70,6 +69,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+        $this->authorize('update', $course);
             $validated = $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
@@ -85,6 +85,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        $this->authorize('delete', $course);
         $course->delete();
         return redirect('/');
     }
