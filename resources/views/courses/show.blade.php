@@ -10,15 +10,16 @@
                     <h1 class="text-3xl font-bold">{{ $course->title }}</h1>
                     <p class="text-base-content/60">{{ $course->description }}</p>
                 </div>
-                <button class="btn btn-primary btn-sm">
-
-                    <a href="/courses/{{ $course->id }}/edit">Edit</a>
-                    <form action="/courses/{{ $course->id }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-error btn-sm">Delete</button>
-                    </form>
-                </button>
+                @can('update', $course)
+                    <div class="flex flex-row gap-2">
+                        <a href="/courses/{{ $course->id }}/edit" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="/courses/{{ $course->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                        </form>
+                    </div>
+                @endcan
             </div>
             <div class="card-body">
                 <h2 class="text-2xl font-bold">Contents</h2>

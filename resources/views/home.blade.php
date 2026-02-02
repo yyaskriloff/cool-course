@@ -10,8 +10,7 @@
                     <h1 class="text-3xl font-bold">Welcome to Cool Courses!</h1>
                     <p class="mt-4 text-base-content/60">This is your brand new Cool Courses application</p>
 
-                    <x-forms.course />
-                    <div class="mt-8">
+                    <div class="mt-8 flex flex-col gap-4">
                         @forelse ($courses as $course)
                             <x-course :course="$course" />
                         @empty
