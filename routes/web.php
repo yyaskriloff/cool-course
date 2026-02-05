@@ -7,10 +7,14 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Models\Course;
+use Inertia\Inertia;
+
 
 Route::get('/', function () {
+    
     $courses = Course::get();
-    return view('home', ['courses' => $courses]);
+
+    return Inertia::render('Home', ['courses' => $courses]);
 })->name('home');
 // courses routes
 
