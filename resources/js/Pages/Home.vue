@@ -20,8 +20,10 @@ console.log({courses})
                     <p class="mt-4 text-base-content/60">This is your brand new Cool Courses application</p>
 
                     
-                    <Course v-if="courses.length > 0" v-for="course in courses" :key="course.id" :course="course" />
-                    <p v-else class="text-base-content/60">No courses found</p>
+                    <div class="mt-8 flex flex-col gap-4">
+                        <Course v-if="courses.length > 0" v-for="course in courses" :key="course.id" :course="course" />
+                        <p v-else class="text-base-content/60">No courses found</p>
+                    </div>
                 </div>
             </div>
         </div>

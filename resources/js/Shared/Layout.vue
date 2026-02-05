@@ -27,8 +27,8 @@ const logout = () => {
                 <button @click="logout" type="button" class="btn btn-ghost btn-sm">Logout</button>
             </template>
             <template v-else>
-                <a href="/login" class="btn btn-ghost btn-sm">Sign In</a>
-                <a href="/register" class="btn btn-primary btn-sm">Sign Up</a>
+                <Link href="/login" class="btn btn-ghost btn-sm">Sign In</Link>
+                <Link href="/register" class="btn btn-primary btn-sm">Sign Up</Link>
             </template>
         </div>
     </nav>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Content;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CourseController extends Controller
 {
@@ -19,7 +20,7 @@ class CourseController extends Controller
     {
         $courses = Auth::user()?->courses ?? collect();
 
-        return view('courses.index', ['courses' => $courses]);
+        return Inertia::render('Courses/Index', ['courses' => $courses]);
     }
 
     /**
