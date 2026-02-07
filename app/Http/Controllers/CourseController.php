@@ -52,7 +52,17 @@ class CourseController extends Controller
     {
         $contents = Content::where('course_id', $course->id)->orderBy('created_at', 'desc')->get();
 
-        return view('courses.show', compact('course', 'contents'));
+        $canUpdate = Auth::user()->can('update', $course);
+        $canDelete = Auth::user()->can('delete', $course);
+
+        return Inertia::render('Courses/Show', [
+            'course' => $course, 
+            'contents' => $contents,
+            'can'=> [
+                'update' => $canUpdate,
+                'delete' => $canDelete,
+            ]
+        ]);
     }
 
     /**
