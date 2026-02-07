@@ -25,8 +25,12 @@ Route::middleware('auth')->group(function () {
 
 
 // Auth
-Route::view('/register', 'auth.register')->name('register');
+Route::get('/register', function () {
+    return Inertia::render('Auth/Register');
+})->name('register');
 Route::post('/register', Register::class);
-Route::view('/login', 'auth.login')->name('login');
+Route::get('/login', function () {
+    return Inertia::render('Auth/Login');
+})->name('login');
 Route::post('/login', Login::class);
 Route::post('/logout', Logout::class);
