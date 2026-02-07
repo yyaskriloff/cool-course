@@ -28,7 +28,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('courses.create');
+
+        $this->authorize('create', Course::class);
+        return Inertia::render('Courses/Create');
     }
 
     public function store(Request $request)
@@ -72,7 +74,7 @@ class CourseController extends Controller
     {
 
         $this->authorize('update', $course);
-        return view('courses.edit', compact('course'));
+        return Inertia::render('Courses/Edit', ['course' => $course]);
     }
 
     /**

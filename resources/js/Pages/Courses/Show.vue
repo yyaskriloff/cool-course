@@ -1,6 +1,6 @@
 <script setup>
 import Layout from '@/Shared/Layout.vue'
-import { Head, Link, usePage } from '@inertiajs/vue3'
+import { Head, Link, usePage, Form } from '@inertiajs/vue3'
 import Content from '@/Shared/Content.vue'
 
 const page = usePage()
@@ -25,11 +25,9 @@ console.log({course, contents, can})
                     </div>
                     <div v-if="can.update" class="flex flex-row gap-2">
                             <Link :href="`/courses/${course.id}/edit`" class="btn btn-primary btn-sm">Edit</Link>
-                            <form :action="`/courses/${course.id}`" method="POST">
-                                <!-- @csrf
-                                @method('DELETE') -->
+                            <Form :action="`/courses/${course.id}`" method="DELETE">
                                 <button type="submit" class="btn btn-error btn-sm">Delete</button>
-                            </form>
+                            </Form>
                         </div>
                 </div>
                 <div class="card-body">

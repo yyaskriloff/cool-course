@@ -49,6 +49,9 @@ class HandleInertiaRequests extends Middleware
                     ? $request->user()->only('id', 'name', 'email')
                     : null,
             ],
+            
+            // CSRF token for forms
+            'csrf' => csrf_token(),
         ];
         
         // Debug: log what we're sharing
