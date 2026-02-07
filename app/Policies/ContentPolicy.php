@@ -37,16 +37,16 @@ class ContentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Content $content): bool
+    public function update(User $user, Course $course): bool
     {
-        return $user->can('update', $content);
+        return $user->can('update', $course);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Content $content): bool
+    public function delete(User $user, Course $course): bool
     {
-        return $user->can('delete', $content);
+        return $user->can('delete', $course);
     }
 }

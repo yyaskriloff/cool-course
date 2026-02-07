@@ -1,5 +1,5 @@
 <script setup>
-import { Link, Form } from '@inertiajs/vue3'
+import { Link, Form, router } from '@inertiajs/vue3'
 import {defineProps} from 'vue'
 
 const props = defineProps({
@@ -9,7 +9,10 @@ const props = defineProps({
 
 const {content, can} = props
 
-console.log({content, can})
+const handleDeleteSuccess = () => {
+    // The controller redirects to courses.show, explicitly visit to ensure fresh data
+    router.visit(`/courses/${content.course_id}`)
+}
 </script>
 
 <template>
@@ -22,7 +25,11 @@ console.log({content, can})
         <div  class="flex flex-row gap-2">
             <template v-if="can.update">
 
-                <Form :action="`/courses/${content.course_id}/content/${content.id}`" method="DELETE">
+                <Form 
+                    :action="`/courses/${content.course_id}/content/${content.id}`" 
+                    method="DELETE"
+                    @success="handleDeleteSuccess"
+                >
                     <button type="submit" class="btn btn-error btn-sm">Delete</button>
                 </Form>
                 <Link :href="`/courses/${content.course_id}/content/${content.id}/edit`"

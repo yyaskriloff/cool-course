@@ -53,13 +53,7 @@ class HandleInertiaRequests extends Middleware
             // CSRF token for forms
             'csrf' => csrf_token(),
         ];
-        
-        // Debug: log what we're sharing
-        Log::debug('Inertia shared data', [
-            'parent_keys' => array_keys($parentShared),
-            'shared_keys' => array_keys($shared),
-            'auth' => $shared['auth'] ?? 'NOT SET',
-        ]);
+    
         
         return $shared;
     }
