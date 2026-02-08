@@ -61,8 +61,8 @@ class ContentController extends Controller
     {
         $content = $course->contents()->findOrFail($content);
 
-        $canUpdate = Auth::user()->can('update', $content);
-        $canDelete = Auth::user()->can('delete', $content);
+        $canUpdate = Auth::user()->can('update', $course);
+        $canDelete = Auth::user()->can('delete', $course);
 
         return Inertia::render('Courses/Content/Show', [
             'course' => $course->only('id', 'title', 'description'),
